@@ -1,0 +1,30 @@
+package com.example.demo.common;
+
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLIntegrityConstraintViolationException;
+
+@ControllerAdvice(annotations = {RestController.class,Controller.class})
+@ResponseBody
+@Slf4j
+public class GoaExetion {
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public  R<String> exceptionHandel(SQLIntegrityConstraintViolationException ex){
+        if (ex.getMessage().contains("Duplicate entry")){
+      String[] split= ex.getMessage().split(" ");
+String msg=split[2]+"已存在";
+            return R.error(msg);
+        }
+return R.error("未知错误");
+    }
+
+    @ExceptionHandler(CustomExcetion.class)
+    public  R<String> exceptionHandel2(CustomExcetion ex){
+        return R.error(ex.getMessage());
+    }
+
+}
