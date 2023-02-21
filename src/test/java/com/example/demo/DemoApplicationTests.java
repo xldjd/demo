@@ -13,7 +13,7 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
-redisTemplate.opsForValue().set("123","l123l");
+redisTemplate.opsForValue().set("123","2");
 
     }
 
